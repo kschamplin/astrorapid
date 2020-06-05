@@ -10,7 +10,8 @@ def create_custom_classifier(get_data_func, data_dir, class_nums=(1,2,), class_n
                              timestep=3.0, retrain_network=False, train_epochs=50, zcut=0.5, bcut=True,
                              ignore_classes=(), nprocesses=1, nchunks=1000, otherchange='',
                              training_set_dir='data/training_set_files', save_dir='data/saved_light_curves',
-                             fig_dir='Figures', plot=True, num_ex_vs_time=100, init_day_since_trigger=-25):
+                             fig_dir='Figures', plot=True, num_ex_vs_time=100, init_day_since_trigger=-25,
+                             loss_func='categorical_crossentropy'):
 
     """
     Create a classifier with your own data and own training parameters.
@@ -86,6 +87,8 @@ def create_custom_classifier(get_data_func, data_dir, class_nums=(1,2,), class_n
     init_day_since_trigger : int
         Day since trigger from which to start plotting in vs time figures. Input a negative value for a day
         before trigger.
+    loss_func : str
+        The loss function to use. Must be in Keras's known loss functions. Default is 'categorical_crossentropy'.
     """
 
     for dirname in [training_set_dir, data_dir, save_dir]:
@@ -109,7 +112,7 @@ def create_custom_classifier(get_data_func, data_dir, class_nums=(1,2,), class_n
 
     # Train the neural network model on saved files
     model = train_model(X_train, X_test, y_train, y_test, sample_weights=sample_weights, fig_dir=fig_dir,
-                        retrain=retrain_network, epochs=train_epochs, plot_loss=plot)
+                        retrain=retrain_network, epochs=train_epochs, plot_loss=plot, loss_function=loss_func)
 
     # Plot classification metrics such as confusion matrices
     if plot:
