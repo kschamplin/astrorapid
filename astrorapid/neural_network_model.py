@@ -4,7 +4,7 @@ import pickle
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.models import load_model
 from tensorflow.python.keras.layers import Dense, Input
-from tensorflow.python.keras.layers import LSTM, GRU
+from tensorflow.python.keras.layers import CuDNNLSTM, GRU
 from tensorflow.python.keras.layers import Dropout, BatchNormalization, Activation, TimeDistributed, Masking
 from tensorflow.python.keras.layers.convolutional import Conv1D, Conv2D
 from tensorflow.python.keras.layers.convolutional import MaxPooling1D, MaxPooling2D
@@ -37,11 +37,11 @@ def train_model(X_train, X_test, y_train, y_test, sample_weights=None, fig_dir='
         # model.add(MaxPooling1D(pool_size=1))
         # model.add(Dropout(0.2, seed=42))
 
-        model.add(LSTM(100, return_sequences=True))
+        model.add(CuDNNLSTM(100, return_sequences=True))
         # model.add(Dropout(0.2, seed=42))
         # model.add(BatchNormalization())
 
-        model.add(LSTM(100, return_sequences=True))
+        model.add(CuDNNLSTM(100, return_sequences=True))
         # model.add(Dropout(0.2, seed=42))
         # model.add(BatchNormalization())
         # model.add(Dropout(0.2, seed=42))
