@@ -46,7 +46,7 @@ def train_model(X_train, X_test, y_train, y_test, sample_weights=None, fig_dir='
         if use_gpu:
             model.add(CuDNNLSTM(100, return_sequences=True))
         else:
-            model.add(ithgLSTM(100, return_sequences=True))
+            model.add(LSTM(100, return_sequences=True))
         # model.add(Dropout(0.2, seed=42))
         # model.add(BatchNormalization())
         # model.add(Dropout(0.2, seed=42))
