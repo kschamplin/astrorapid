@@ -11,7 +11,7 @@ def create_custom_classifier(get_data_func, data_dir, class_nums=(1,2,), class_n
                              ignore_classes=(), nprocesses=1, nchunks=1000, otherchange='',
                              training_set_dir='data/training_set_files', save_dir='data/saved_light_curves',
                              fig_dir='Figures', plot=True, num_ex_vs_time=100, init_day_since_trigger=-25,
-                             loss_func='categorical_crossentropy'):
+                             loss_func='categorical_crossentropy', use_gpu=False):
 
     """
     Create a classifier with your own data and own training parameters.
@@ -112,7 +112,7 @@ def create_custom_classifier(get_data_func, data_dir, class_nums=(1,2,), class_n
 
     # Train the neural network model on saved files
     model = train_model(X_train, X_test, y_train, y_test, sample_weights=sample_weights, fig_dir=fig_dir,
-                        retrain=retrain_network, epochs=train_epochs, plot_loss=plot, loss_function=loss_func)
+                        retrain=retrain_network, epochs=train_epochs, plot_loss=plot, loss_function=loss_func,use_gpu=use_gpu)
 
     # Plot classification metrics such as confusion matrices
     if plot:
